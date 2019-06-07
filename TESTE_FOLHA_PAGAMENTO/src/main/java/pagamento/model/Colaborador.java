@@ -6,11 +6,11 @@ import java.util.*;
 import javax.persistence.*;
 
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity 
 public class Colaborador {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private int codigo;
+	private Long id;
     private String nome;
     private String endereco;
     private String telefone;
@@ -27,10 +27,12 @@ public class Colaborador {
 	private FolhaPagamento folhaPagamento;
 
 	public Colaborador(){}
-    public Colaborador(int codigo){
-    	this.codigo=codigo;
+    public Colaborador(Long id){
+    	this.id=id;
     }
 
+    
+    
 	public FolhaPagamento getFolhaPagamento() {
 		return folhaPagamento;
 	}
@@ -39,11 +41,11 @@ public class Colaborador {
 		this.folhaPagamento = folhaPagamento;
 	}
     
-	public int getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getNome() {
 		return nome;
@@ -92,8 +94,58 @@ public class Colaborador {
 		this.ocorrencias.add(of);
 		
 	}
+	
+	public String getThing(String att) {
+		switch (att) {
+			case "nome":
+				return this.getNome();
+			case "endereco":
+				return this.getEndereco();
+			case "cep":
+				return this.getCep();
+			case "cpf":
+				return this.getNome();
+			case "telefone":
+				return this.getTelefone();	
+			case "bairro":
+				return this.getBairro();
+			case "salarioAtual":
+				Float sA = this.getSalarioAtual();
+				return sA.toString();
+			default :
+				break;
+		}
+		return "não achou";
+	}
 
-
+	public void setThing(String att,String neww) {
+		switch (att) {
+			case "nome":
+				this.setNome(neww);
+				break;
+			case "endereco":
+				this.setEndereco(neww);
+				break;
+			case "cep":
+				this.setCep(neww);
+				break;
+			case "cpf":
+				this.setCpf(neww);
+				break;
+			case "telefone":
+				this.setTelefone(neww);
+				break;
+			case "bairro":
+				this.setBairro(neww);
+				break;
+			case "salarioAtual":
+				float sA = Float.parseFloat(neww);
+				this.setSalarioAtual(sA);
+			default :
+				break;
+		}
+	}
+	
 	public List<OcorrenciaFolha> getOcorrencias() {
 		return ocorrencias;
 	}

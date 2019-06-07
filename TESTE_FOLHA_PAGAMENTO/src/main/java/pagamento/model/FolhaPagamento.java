@@ -5,7 +5,7 @@ import java.util.*;
 public class FolhaPagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codigo;
+    private Long id;
     private int mes;
     private int ano;
     private double totalDescontos;
@@ -26,7 +26,7 @@ public class FolhaPagamento {
     public FolhaPagamento() {
 
     }
-    public FolhaPagamento(int codigo){this.codigo=codigo;}
+    public FolhaPagamento(Long id){this.id=id;}
 
     public int getMes() {
         return mes;
