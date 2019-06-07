@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: Rodrigo
+Build-Jdk: 11.0.3
+Implementation-Title: gs-mysql-data
+Implementation-Version: 0.1.0
+Implementation-Vendor-Id: org.springframework
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/gs-mysql-data
+Created-By: Maven Integration for Eclipse
+

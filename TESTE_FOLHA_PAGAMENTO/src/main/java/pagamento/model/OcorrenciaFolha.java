@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 
 public class OcorrenciaFolha {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-	private int codigo;
+	private Long id;
 	private String descricao;
     private float valor;
-    private Enum ocorrencia;
+    @Enumerated(EnumType.STRING)
+    private TipoOcorrencia ocorrencia;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "colaborador")
@@ -26,8 +27,8 @@ public class OcorrenciaFolha {
 	public OcorrenciaFolha() {
 	}
 
-	public OcorrenciaFolha(int codigo) {
-		this.codigo = codigo;
+	public OcorrenciaFolha(Long id) {
+		this.id = id;
 	}
 
 	public Colaborador getColaborador() {
@@ -36,11 +37,11 @@ public class OcorrenciaFolha {
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
-	public Integer getCodigo() {
-		return codigo;
+	public Long getId() {
+		return id;
 	}
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -54,11 +55,15 @@ public class OcorrenciaFolha {
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-	public Enum getOcorrencia() {
+	public TipoOcorrencia getOcorrencia() {
 		return ocorrencia;
 	}
-	public void setOcorrencia(Enum ocorrencia) {
-		this.ocorrencia = ocorrencia;
+	public void setOcorrencia(String ocorrencia) {
+		if(ocorrencia == "p") {
+			this.ocorrencia=TipoOcorrencia.PROVENTO;
+		}else if(ocorrencia == "d"){
+			this.ocorrencia=TipoOcorrencia.DESCONTO;
+		}
 	}
 	
 	
