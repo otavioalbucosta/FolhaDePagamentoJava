@@ -59,9 +59,9 @@ public class OcorrenciaFolha {
 		return ocorrencia;
 	}
 	public void setOcorrencia(String ocorrencia) {
-		if(ocorrencia == "p") {
+		if(ocorrencia == "p" || ocorrencia == "PROVENTO" || ocorrencia == "provento") {
 			this.ocorrencia=TipoOcorrencia.PROVENTO;
-		}else if(ocorrencia == "d"){
+		}else if(ocorrencia == "d" || ocorrencia == "DESCONTO" || ocorrencia == "desconto"){
 			this.ocorrencia=TipoOcorrencia.DESCONTO;
 		}
 	}

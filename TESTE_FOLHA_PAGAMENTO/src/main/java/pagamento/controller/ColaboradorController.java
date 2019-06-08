@@ -28,7 +28,7 @@ public class ColaboradorController {
 	
 
 	@PostMapping(path="/add") 
-	public @ResponseBody String addNewUser ( @RequestParam String nome, @RequestParam String endereco,
+	public @ResponseBody String addColab ( @RequestParam String nome, @RequestParam String endereco,
 			@RequestParam String telefone, @RequestParam String bairro, @RequestParam String cep, @RequestParam String cpf,
 			@RequestParam float salarioAtual) {
 		
@@ -41,9 +41,7 @@ public class ColaboradorController {
 		c.setSalarioAtual(salarioAtual);
 		c.setTelefone(telefone);
 		
-		
-		
-		
+
 		colaboradorRepository.save(c);
 		return "Salvo";
 	}
@@ -62,7 +60,7 @@ public class ColaboradorController {
 	}
 	
 	@DeleteMapping(path="/delete") 
-	public @ResponseBody String deleteById ( @RequestParam Long id) {
+	public @ResponseBody String deleteColabById ( @RequestParam Long id) {
 		try {
 			Colaborador c = new Colaborador(id);
 			colaboradorRepository.delete(c);
@@ -75,16 +73,25 @@ public class ColaboradorController {
 	
 	
 	@PutMapping(path ="/update")
-	public @ResponseBody String update (@RequestParam Long id ,@RequestParam String nome, @RequestParam String endereco,
+	public @ResponseBody String updateColabById (@RequestParam Long id ,@RequestParam String nome, @RequestParam String endereco,
 			@RequestParam String telefone, @RequestParam String bairro, @RequestParam String cep, @RequestParam String cpf,
 			@RequestParam float salarioAtual) {
-		return "";
+		Colaborador c = new Colaborador(id);
+		c.setBairro(bairro);
+		c.setCep(cep);
+		c.setCpf(cpf);
+		c.setEndereco(endereco);
+		c.setNome(nome);
+		c.setSalarioAtual(salarioAtual);
+		c.setTelefone(telefone);
+		colaboradorRepository.save(c);
+		return "salvo";
 	}
 	
 	
 	
 	@GetMapping(path="/all")
-	public @ResponseBody Iterable<Colaborador> getAllUsers() {
+	public @ResponseBody Iterable<Colaborador> getAllColabs() {
 		return colaboradorRepository.findAll();
 	}
 	

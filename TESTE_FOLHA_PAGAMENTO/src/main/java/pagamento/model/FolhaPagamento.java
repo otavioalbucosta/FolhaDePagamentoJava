@@ -18,6 +18,7 @@ public class FolhaPagamento {
     public void setColaboradores(ArrayList<Colaborador> colaboradores) {
         this.colaboradores = colaboradores;
     }
+   
 
     public List<Colaborador> getColaboradores() {
         return colaboradores;
