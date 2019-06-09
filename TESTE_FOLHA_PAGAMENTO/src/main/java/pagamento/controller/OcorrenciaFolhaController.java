@@ -44,11 +44,11 @@ public class OcorrenciaFolhaController {
 		}
 	
 	 @PutMapping(path="/update")
-	    public @ResponseBody String updateOcorrencia (@RequestParam Long id ,@RequestParam String descricao,@RequestParam float valor,@RequestParam String ocorrencia){
+	    public @ResponseBody String updateOcorrencia (@RequestParam Long id ,@RequestParam(required = false) String descricao,@RequestParam(required = false) Float valor,@RequestParam(required = false) String ocorrencia){
 	       OcorrenciaFolha of = new OcorrenciaFolha(id);
-	       of.setDescricao(descricao);
-	       of.setOcorrencia(ocorrencia);
-	       of.setValor(valor);
+	       if(descricao!=null){of.setDescricao(descricao);}
+	       if(ocorrencia!=null){of.setOcorrencia(ocorrencia);}
+	       if(valor!=null){of.setValor(valor);}
 	       ocorrenciaFolhaRepository.save(of);
 	        return "Saved";
 	    }

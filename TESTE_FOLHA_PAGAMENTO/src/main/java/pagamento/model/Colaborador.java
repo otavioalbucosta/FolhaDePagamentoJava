@@ -30,7 +30,7 @@ public class Colaborador implements Serializable {
 
 
    	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name="folhaPagamrnto_id")
+	@JoinColumn(name="folhaPagamento_id")
 	private FolhaPagamento folhaPagamento;
 
 	public Colaborador(){}
@@ -48,7 +48,9 @@ public class Colaborador implements Serializable {
 	public void setFolhaPagamento(FolhaPagamento folhaPagamento) {
 		this.folhaPagamento = folhaPagamento;
 	}
-    
+
+	public Long getFolhaPagamentoId(){return folhaPagamento.getId();}
+
 	public Long getId() {
 		return id;
 	}
@@ -103,56 +105,7 @@ public class Colaborador implements Serializable {
 		
 	}
 	
-	public String getThing(String att) {
-		switch (att) {
-			case "nome":
-				return this.getNome();
-			case "endereco":
-				return this.getEndereco();
-			case "cep":
-				return this.getCep();
-			case "cpf":
-				return this.getNome();
-			case "telefone":
-				return this.getTelefone();	
-			case "bairro":
-				return this.getBairro();
-			case "salarioAtual":
-				Float sA = this.getSalarioAtual();
-				return sA.toString();
-			default :
-				break;
-		}
-		return "não achou";
-	}
 
-	public void setThing(String att,String neww) {
-		switch (att) {
-			case "nome":
-				this.setNome(neww);
-				break;
-			case "endereco":
-				this.setEndereco(neww);
-				break;
-			case "cep":
-				this.setCep(neww);
-				break;
-			case "cpf":
-				this.setCpf(neww);
-				break;
-			case "telefone":
-				this.setTelefone(neww);
-				break;
-			case "bairro":
-				this.setBairro(neww);
-				break;
-			case "salarioAtual":
-				float sA = Float.parseFloat(neww);
-				this.setSalarioAtual(sA);
-			default :
-				break;
-		}
-	}
 	@JsonIgnore
 	public List<OcorrenciaFolha> getOcorrencias() {
 		return ocorrencias;

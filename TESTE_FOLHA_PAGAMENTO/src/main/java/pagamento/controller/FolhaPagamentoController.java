@@ -18,6 +18,7 @@ public class FolhaPagamentoController {
 
     @Autowired
     private FolhaPagamentoRepository folhapagamentorepository;
+    @Autowired
     private ColaboradorRepository colabrepo;
     @PostMapping(path="/add")
     public @ResponseBody String addFolha (@RequestParam int mes,@RequestParam int ano){
@@ -44,12 +45,12 @@ public class FolhaPagamentoController {
     public @ResponseBody String insereFolha(@RequestParam Long idFolha, @RequestParam Long idColab) {
     	FolhaPagamento fp = folhapagamentorepository.findById(idFolha).get();
     	Colaborador c = colabrepo.findById(idColab).get();
-    	fp.inserirColaboradores(c);
+    	fp.getColaboradores().add(c);
     	c.setFolhaPagamento(fp);
     	fp.setTotalDescontos();
         fp.setTotalProventos();
     	folhapagamentorepository.save(fp);
-		return null;
+		return "Inserido!";
         
     }
     
@@ -61,10 +62,11 @@ public class FolhaPagamentoController {
     
     
     @PutMapping(path="/update")
-    public @ResponseBody String updateFolha (@RequestParam Long id ,@RequestParam int mes,@RequestParam int ano){
+    public @ResponseBody String updateFolha (@RequestParam Long id ,@RequestParam(required = false) Integer mes,@RequestParam(required = false) Integer ano){
         FolhaPagamento f = new FolhaPagamento(id);
-        f.setMes(mes);
-        f.setAno(ano);
+
+        if(mes!=null){f.setMes(mes);}
+        if(ano!=null){f.setAno(ano);}
         f.setTotalDescontos();
         f.setTotalProventos();
         folhapagamentorepository.save(f);

@@ -71,17 +71,17 @@ public class ColaboradorController {
 	
 	
 	@PutMapping(path ="/update")
-	public @ResponseBody String updateColabById (@RequestParam Long id ,@RequestParam String nome, @RequestParam String endereco,
-			@RequestParam String telefone, @RequestParam String bairro, @RequestParam String cep, @RequestParam String cpf,
-			@RequestParam float salarioAtual) {
-		Colaborador c = new Colaborador(id);
-		c.setBairro(bairro);
-		c.setCep(cep);
-		c.setCpf(cpf);
-		c.setEndereco(endereco);
-		c.setNome(nome);
-		c.setSalarioAtual(salarioAtual);
-		c.setTelefone(telefone);
+	public @ResponseBody String updateColabById (@RequestParam Long id ,@RequestParam(required = false) String nome, @RequestParam(required = false) String endereco,
+			@RequestParam(required = false) String telefone, @RequestParam(required = false) String bairro, @RequestParam(required = false) String cep, @RequestParam(required = false) String cpf,
+			@RequestParam(required = false) Float salarioAtual) {
+		Colaborador c = colaboradorRepository.findById(id).get();
+		if (nome!=null){c.setNome(nome);}
+		if (bairro!=null){c.setBairro(bairro);}
+		if(cep!=null){c.setCep(cep);}
+		if(cpf!=null){c.setCpf(cpf);}
+		if(endereco!=null){c.setEndereco(endereco);}
+		if( salarioAtual!=null){c.setSalarioAtual(salarioAtual);}
+		if(telefone!=null){c.setTelefone(telefone);}
 		colaboradorRepository.save(c);
 		return "salvo";
 	}

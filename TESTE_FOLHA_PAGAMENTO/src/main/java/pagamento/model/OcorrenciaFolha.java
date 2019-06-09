@@ -40,7 +40,7 @@ public class OcorrenciaFolha implements Serializable {
 	public Colaborador getColaborador() {
 		return colaborador;
 	}
-
+	@JsonIgnore
 	public void setColaborador(Colaborador colaborador) {
 		this.colaborador = colaborador;
 	}
@@ -82,7 +82,7 @@ public class OcorrenciaFolha implements Serializable {
 
 
 	}
-	public Long getColabId(){
+	public Long getColaboradorId(){
 		return colaborador.getId();
 	}
 

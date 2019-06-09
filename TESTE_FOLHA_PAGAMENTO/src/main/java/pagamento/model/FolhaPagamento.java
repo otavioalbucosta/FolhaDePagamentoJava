@@ -1,5 +1,6 @@
 package pagamento.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -15,14 +16,14 @@ public class FolhaPagamento {
     private double totalProventos;
 
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy= "folhaPagamento")
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy= "folhaPagamento")
     private List<Colaborador> colaboradores = new ArrayList();
 
     public void setColaboradores(ArrayList<Colaborador> colaboradores) {
         this.colaboradores = colaboradores;
     }
    
-
+    @JsonIgnore
     public List<Colaborador> getColaboradores() {
         return colaboradores;
     }
@@ -94,6 +95,15 @@ public class FolhaPagamento {
 
         return total;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
 
 }
