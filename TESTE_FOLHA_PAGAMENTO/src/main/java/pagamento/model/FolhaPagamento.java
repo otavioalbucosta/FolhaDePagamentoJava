@@ -1,11 +1,14 @@
 package pagamento.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.*;
 @Entity
 public class FolhaPagamento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int codigo;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private int mes;
     private int ano;
     private double totalDescontos;
@@ -18,6 +21,7 @@ public class FolhaPagamento {
     public void setColaboradores(ArrayList<Colaborador> colaboradores) {
         this.colaboradores = colaboradores;
     }
+   
 
     public List<Colaborador> getColaboradores() {
         return colaboradores;
@@ -26,7 +30,7 @@ public class FolhaPagamento {
     public FolhaPagamento() {
 
     }
-    public FolhaPagamento(int codigo){this.codigo=codigo;}
+    public FolhaPagamento(Long id){this.id=id;}
 
     public int getMes() {
         return mes;
