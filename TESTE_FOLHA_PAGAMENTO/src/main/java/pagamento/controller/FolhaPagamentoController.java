@@ -2,21 +2,25 @@ package pagamento.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import pagamento.model.Colaborador;
 import pagamento.model.FolhaPagamento;
+import pagamento.model.OcorrenciaFolha;
+import pagamento.repositories.ColaboradorRepository;
 import pagamento.repositories.FolhaPagamentoRepository;
 
-@Controller    // This means that this class is a Controller
+import java.util.Optional;
+
+@RestController
 @RequestMapping(path="/folhapagamento")
 public class FolhaPagamentoController {
 
     @Autowired
     private FolhaPagamentoRepository folhapagamentorepository;
-    @GetMapping(path="/add")
-    public @ResponseBody String addnewfolha (@RequestParam int mes,@RequestParam int ano){
+    private ColaboradorRepository colabrepo;
+    @PostMapping(path="/add")
+    public @ResponseBody String addFolha (@RequestParam int mes,@RequestParam int ano){
         FolhaPagamento f = new FolhaPagamento();
         f.setMes(mes);
         f.setAno(ano);
@@ -27,23 +31,57 @@ public class FolhaPagamentoController {
     }
 
     @GetMapping(path="/all")
-    public @ResponseBody Iterable<FolhaPagamento> getAllUsers() {
-        // This returns a JSON or XML with the users
+    public @ResponseBody Iterable<FolhaPagamento> getAllFolhas() {
         return folhapagamentorepository.findAll();
     }
 
-    @GetMapping(path="/delete") // Map ONLY GET Requests
-    public @ResponseBody String deleteById ( @RequestParam int codigo) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
+    @GetMapping(path="/findById/{ocoId}")
+    public @ResponseBody Optional<FolhaPagamento> getOcorrenciaById(@PathVariable(value="folhaId")Long folhaId){
+        return folhapagamentorepository.findById(folhaId);
+    }
+
+    @PostMapping(path="/insereFolha")
+    public @ResponseBody String insereFolha(@RequestParam Long idFolha, @RequestParam Long idColab) {
+    	FolhaPagamento fp = folhapagamentorepository.findById(idFolha).get();
+    	Colaborador c = colabrepo.findById(idColab).get();
+    	fp.inserirColaboradores(c);
+    	c.setFolhaPagamento(fp);
+    	fp.setTotalDescontos();
+        fp.setTotalProventos();
+    	folhapagamentorepository.save(fp);
+		return null;
+        
+    }
+    
+    @GetMapping(path = "/getValor")
+	public @ResponseBody double calcTotFolha(@RequestParam Long id){
+		FolhaPagamento fp = new FolhaPagamento(id);
+		return fp.calcularFolha();
+	}
+    
+    
+    @PutMapping(path="/update")
+    public @ResponseBody String updateFolha (@RequestParam Long id ,@RequestParam int mes,@RequestParam int ano){
+        FolhaPagamento f = new FolhaPagamento(id);
+        f.setMes(mes);
+        f.setAno(ano);
+        f.setTotalDescontos();
+        f.setTotalProventos();
+        folhapagamentorepository.save(f);
+        return "Saved";
+    }
+    
+    
+    @DeleteMapping(path="/delete")
+    public @ResponseBody String deleteFolhaById ( @RequestParam Long id) {
         try {
-            FolhaPagamento c = new FolhaPagamento(codigo);
+            FolhaPagamento c = new FolhaPagamento(id);
             folhapagamentorepository.delete(c);
         }
         catch (Exception ex) {
             return "Error deleting the user:" + ex.toString();
         }
-        return "Colaborador de codigo: "+codigo+" foi deletado com sucesso";
+        return "folha de codigo: "+id+" foi deletado com sucesso";
     }
 
 }
