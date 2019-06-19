@@ -103,8 +103,16 @@ public class FolhaPagamento {
     public void setId(Long id) {
         this.id = id;
     }
-
-
+    public String getColabsInFolha( ) {
+    	String valores = "";
+    	for(Colaborador colaborador: this.colaboradores) {
+            valores = valores +"NOME: " + colaborador.getNome() + "\nSALARIO : " + colaborador.getSalarioAtual() + "\n\n";
+        }
+    	valores = valores + "--------------------------------------------------------------\n";
+    	return valores;
+    }
+    
+    
 
 }
 

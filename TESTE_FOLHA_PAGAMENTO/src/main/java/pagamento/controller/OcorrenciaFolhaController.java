@@ -29,6 +29,7 @@ public class OcorrenciaFolhaController {
 		of.setDescricao(descricao);
 		of.setOcorrencia(ocorrencia);
 		of.setValor(valor);
+		System.out.println(of.getOcorrencia());
 		ocorrenciaFolhaRepository.save(of);
 		return "Salvo";
 	}

@@ -74,9 +74,9 @@ public class OcorrenciaFolha implements Serializable {
 	}
 
 	public void setOcorrencia(String ocorrencia) {
-		if(ocorrencia == "p" || ocorrencia == "PROVENTO" || ocorrencia == "provento") {
+		if(ocorrencia.equals("p") || ocorrencia.equals("PROVENTO") || ocorrencia.equals("provento")) {
 			this.ocorrencia=TipoOcorrencia.PROVENTO;
-		}else if(ocorrencia == "d" || ocorrencia == "DESCONTO" || ocorrencia == "desconto"){
+		}else if(ocorrencia.equals("d") || ocorrencia.equals("DESCONTO") || ocorrencia.equals("desconto")){
 			this.ocorrencia=TipoOcorrencia.DESCONTO;
 		}
 

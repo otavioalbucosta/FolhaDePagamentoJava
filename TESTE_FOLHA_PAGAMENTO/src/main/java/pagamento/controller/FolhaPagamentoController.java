@@ -56,7 +56,8 @@ public class FolhaPagamentoController {
     
     @GetMapping(path = "/getValor")
 	public @ResponseBody double calcTotFolha(@RequestParam Long id){
-		FolhaPagamento fp = new FolhaPagamento(id);
+		FolhaPagamento fp = folhapagamentorepository.findById(id).get();
+		System.out.println(fp.calcularFolha());
 		return fp.calcularFolha();
 	}
     
@@ -84,6 +85,16 @@ public class FolhaPagamentoController {
             return "Error deleting the user:" + ex.toString();
         }
         return "folha de codigo: "+id+" foi deletado com sucesso";
+    }
+    @GetMapping(path="/valorFolha")
+    public @ResponseBody String getValorFolhaGeral(@RequestParam Long idFolha) {
+    	FolhaPagamento f = folhapagamentorepository.findById(idFolha).get();
+    	return "A empresa deverá pagar " + f.calcularFolha() + "aos empregados";
+    }
+    @GetMapping(path="/valorSalarios")
+    public @ResponseBody String getValorSalarios(@RequestParam Long idFolha) {
+    	FolhaPagamento f = folhapagamentorepository.findById(idFolha).get();
+    	return f.getColabsInFolha();
     }
 
 }
