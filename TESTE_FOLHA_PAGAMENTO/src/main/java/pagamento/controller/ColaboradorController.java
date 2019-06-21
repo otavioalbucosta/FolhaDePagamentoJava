@@ -25,6 +25,16 @@ public class ColaboradorController {
 	@Autowired
 	private OcorrenciaFolhaRepository ocorr;
 
+	@GetMapping(path="/totalOcorrencias")
+	public @ResponseBody List<List<Double>> totalOcorrenciasPorId(@RequestParam Long id) {
+		return colaboradorRepository.getTotalOcorrencias(id);
+	}
+	
+	@GetMapping(path="/listar")
+	public @ResponseBody List<String> listColab() {
+		return colaboradorRepository.listarColaboradores();
+	}
+	
 	@PostMapping(path="/add") 
 	public @ResponseBody String addColab (@RequestParam String nome, @RequestParam String endereco,
 			@RequestParam String telefone, @RequestParam String bairro, @RequestParam String cep, @RequestParam String cpf,
@@ -96,5 +106,21 @@ public class ColaboradorController {
 	@GetMapping(path="/findById/{ocoId}")
 	public @ResponseBody Optional<Colaborador> getOcorrenciaById(@PathVariable(value="colabId")Long colabId){
 		return colaboradorRepository.findById(colabId);
+	}
+	
+	
+	@GetMapping(path="/listarColabs")
+	public @ResponseBody List<String> listColabs(@RequestParam Long id){
+		return colaboradorRepository.listarColaboradores();
+	}
+	
+	@GetMapping(path="/infoColaborador")
+	public @ResponseBody List<Colaborador> infoColabs(@RequestParam Long id){
+		return colaboradorRepository.getInfoColab(id);
+	}
+	
+	@GetMapping(path="/totalProvDesc")
+	public @ResponseBody List<List<Double>> totalOcorrencias(@RequestParam Long id){
+		return colaboradorRepository.getTotalOcorrencias(id);
 	}
 }

@@ -25,12 +25,15 @@ public class Colaborador implements Serializable {
     private String cep;
     private String cpf;
     private float salarioAtual;
+	
+    @JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "colaborador")
     private List<OcorrenciaFolha> ocorrencias=new ArrayList<>();
 
-
+    
    	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name="folhaPagamento_id")
+   	@JsonIgnore
 	private FolhaPagamento folhaPagamento;
 
 	public Colaborador(){}
@@ -48,7 +51,7 @@ public class Colaborador implements Serializable {
 	public void setFolhaPagamento(FolhaPagamento folhaPagamento) {
 		this.folhaPagamento = folhaPagamento;
 	}
-
+	@JsonIgnore
 	public Long getFolhaPagamentoId(){return folhaPagamento.getId();}
 
 	public Long getId() {

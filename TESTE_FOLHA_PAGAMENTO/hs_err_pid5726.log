@@ -1,0 +1,21 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007f37b6480ea1, pid=5726, tid=5767
+#
+# JRE version: OpenJDK Runtime Environment (13.0+13) (build 13+13-Ubuntu-0ubunt1)
+# Java VM: OpenJDK 64-Bit Server VM (13+13-Ubuntu-0ubunt1, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Problematic frame:
+# C  [libjimage.so+0x2ea1]
+#
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P" (or dumping to /home/lais/Downloads/FolhaDePagamentoJava-master/TESTE_FOLHA_PAGAMENTO/core.5726)
+#
+# If you would like to submit a bug report, please visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-13
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,suspend=y,address=localhost:34337 -javaagent:/opt/eclipse/configuration/org.eclipse.osgi/404/0/.cp/lib/javaagent-shaded.jar -Dfile.encoding=UTF-8 pagamento.Application
+
+Host: Intel(R) Core(TM) i5-2310 CPU @ 2.90GHz, 4 cores, 3G, 
